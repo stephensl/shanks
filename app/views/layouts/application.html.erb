@@ -17,6 +17,14 @@
     <% if alert %>
       <p class="alert alert-danger"><%= alert %></p>
     <% end %>
+
+    <% if member_signed_in? %>
+      <%= link_to 'Clubhouse', root_path %>
+      <%= link_to 'Log out', destroy_member_session_path, method: :delete %>
+    <% else %>
+      <%= link_to 'Sign In', new_member_session_path %>
+<% end %>
+
     
     <%= yield %>
   </body>

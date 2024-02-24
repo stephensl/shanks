@@ -1,0 +1,19 @@
+<h1>Member Round Details</h1>
+
+<p>
+  <strong>Member:</strong>
+  <%= @member_round.member.email %>
+</p>
+
+<p>
+  <strong>Round Date:</strong>
+  <%= @member_round.round.date.strftime("%B %d, %Y") %>
+</p>
+
+<p>
+  <strong>Total Score:</strong>
+  <%= @member_round.total_score %>
+</p>
+
+<%= link_to 'Edit', edit_member_round_path(@member_round) %> |
+<%= link_to 'Back', member_rounds_path %>

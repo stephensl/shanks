@@ -1,2 +1,34 @@
-<h1>Clubhouse#index</h1>
-<p>Find me in app/views/clubhouse/index.html.erb</p>
+<h1>Clubhouse</h1>
+
+<div class="clubhouse-section">
+  <h2>Upcoming Rounds</h2>
+  <% if @upcoming_rounds.any? %>
+    <ul>
+      <% @upcoming_rounds.each do |round| %>
+        <li>
+          <strong>Date:</strong> <%= round.date.strftime("%B %d, %Y") %><br>
+          <strong>Course:</strong> <%= round.course.name %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No upcoming rounds.</p>
+  <% end %>
+</div>
+
+<div class="clubhouse-section">
+  <h2>Past Rounds</h2>
+  <% if @past_rounds.any? %>
+    <ul>
+      <% @past_rounds.each do |round| %>
+        <li>
+          <strong>Date:</strong> <%= round.date.strftime("%B %d, %Y") %><br>
+          <strong>Course:</strong> <%= round.course.name %><br>
+          <strong>Score:</strong> <%= round.member_rounds.find_by(member: current_member)&.total_score %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No past rounds.</p>
+  <% end %>
+</div>

@@ -1,0 +1,32 @@
+<%= form_with(model: @member_round, local: true) do |form| %>
+  <% if @member_round.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@member_round.errors.count, "error") %> prohibited this member round from being saved:</h2>
+
+      <ul>
+      <% @member_round.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :member_id %>
+    <%= form.collection_select :member_id, Member.all, :id, :email, prompt: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :round_id %>
+    <%= form.collection_select :round_id, Round.all, :id, lambda {|round| "#{round.course.name} on #{round.date.strftime('%B %d, %Y')}" }, prompt: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :total_score %>
+    <%= form.number_field :total_score %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
