@@ -10,9 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_24_025703) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_24_035035) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "courses", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "hole_scores", force: :cascade do |t|
+    t.bigint "member_round_id", null: false
+    t.bigint "hole_id", null: false
+    t.integer "strokes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hole_id"], name: "index_hole_scores_on_hole_id"
+    t.index ["member_round_id"], name: "index_hole_scores_on_member_round_id"
+  end
+
+  create_table "holes", force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.integer "number"
+    t.integer "par"
+    t.integer "distance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_holes_on_course_id"
+  end
+
+  create_table "member_rounds", force: :cascade do |t|
+    t.bigint "member_id", null: false
+    t.bigint "round_id", null: false
+    t.integer "total_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_member_rounds_on_member_id"
+    t.index ["round_id"], name: "index_member_rounds_on_round_id"
+  end
 
   create_table "members", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -29,4 +66,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_025703) do
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
   end
 
+  create_table "rounds", force: :cascade do |t|
+    t.datetime "date"
+    t.bigint "course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_rounds_on_course_id"
+  end
+
+  add_foreign_key "hole_scores", "holes"
+  add_foreign_key "hole_scores", "member_rounds"
+  add_foreign_key "holes", "courses"
+  add_foreign_key "member_rounds", "members"
+  add_foreign_key "member_rounds", "rounds"
+  add_foreign_key "rounds", "courses"
 end
