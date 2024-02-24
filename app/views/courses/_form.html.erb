@@ -1,12 +1,12 @@
-<%= form_with(model: @course, local: true) do |form| %>
-  <% if @course.errors.any? %>
+<%= form_with(model: course, local: true) do |form| %>
+  <% if course.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
+      <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
 
       <ul>
-      <% @course.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% course.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -20,6 +20,25 @@
     <%= form.label :location %>
     <%= form.text_field :location %>
   </div>
+
+  <h3>Holes</h3>
+  <%= form.fields_for :holes do |hole_form| %>
+    <div class="hole-fields">
+      <%= hole_form.label :hole %>
+      <span><%= hole_form.object.number %></span> 
+
+      <%= hole_form.label :par %>
+      <%= hole_form.select :par, options_for_select([3, 4, 5], hole_form.object.par) %> 
+
+      <%= hole_form.label :distance %>
+      <%= hole_form.number_field :distance %>
+
+      <% if hole_form.object.persisted? %>
+        <%= hole_form.check_box :_destroy %>
+        <%= hole_form.label :_destroy, "Remove hole" %>
+      <% end %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

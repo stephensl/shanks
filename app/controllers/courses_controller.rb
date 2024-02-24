@@ -10,6 +10,7 @@ class CoursesController < ApplicationController
 
   def new
     @course = Course.new
+    9.times { |i| @course.holes.build(number: i+1) }  # sets hole numbers 1 through 9
   end
 
   def edit
@@ -43,6 +44,6 @@ class CoursesController < ApplicationController
     end
 
     def course_params
-      params.require(:course).permit(:name, :location)
+      params.require(:course).permit(:name, :location, holes_attributes: [:id, :number, :par, :distance, :_destroy])
     end
 end

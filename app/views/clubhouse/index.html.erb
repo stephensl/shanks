@@ -1,34 +1,78 @@
-<h1>Clubhouse</h1>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="your-logo.png" width="112" height="28">
+    </a>
 
-<div class="clubhouse-section">
-  <h2>Upcoming Rounds</h2>
-  <% if @upcoming_rounds.any? %>
-    <ul>
-      <% @upcoming_rounds.each do |round| %>
-        <li>
-          <strong>Date:</strong> <%= round.date.strftime("%B %d, %Y") %><br>
-          <strong>Course:</strong> <%= round.course.name %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>No upcoming rounds.</p>
-  <% end %>
-</div>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
 
-<div class="clubhouse-section">
-  <h2>Past Rounds</h2>
-  <% if @past_rounds.any? %>
-    <ul>
-      <% @past_rounds.each do |round| %>
-        <li>
-          <strong>Date:</strong> <%= round.date.strftime("%B %d, %Y") %><br>
-          <strong>Course:</strong> <%= round.course.name %><br>
-          <strong>Score:</strong> <%= round.member_rounds.find_by(member: current_member)&.total_score %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>No past rounds.</p>
-  <% end %>
-</div>
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/">Home</a>
+      <a class="navbar-item" href="/courses">Courses</a>
+      <a class="navbar-item" href="/rounds/new">Add Round</a>
+      <a class="navbar-item" href="/courses/new">Add Course</a>
+      <!-- Add more links as needed -->
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-primary" href="/signup">
+            <strong>Sign up</strong>
+          </a>
+          <a class="button is-light" href="/login">
+            Log in
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<section class="section">
+  <h1 class="title">Clubhouse</h1>
+
+  <div class="box">
+    <h2 class="subtitle">Upcoming Rounds</h2>
+    <% if @upcoming_rounds.any? %>
+      <div class="content">
+        <ul>
+          <% @upcoming_rounds.each do |round| %>
+            <li>
+              <strong>Date:</strong> <%= round.date.strftime("%B %d, %Y") %><br>
+              <strong>Course:</strong> <%= round.course.name %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% else %>
+      <p>No upcoming rounds.</p>
+    <% end %>
+  </div>
+
+  <div class="box">
+    <h2 class="subtitle">Past Rounds</h2>
+    <% if @past_rounds.any? %>
+      <div class="content">
+        <ul>
+          <% @past_rounds.each do |round| %>
+            <li>
+              <strong>Date:</strong> <%= round.date.strftime("%B %d, %Y") %><br>
+              <strong>Course:</strong> <%= round.course.name %><br>
+              <strong>Score:</strong> <%= round.member_rounds.find_by(member: current_member)&.total_score %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% else %>
+      <p>No past rounds.</p>
+    <% end %>
+  </div>
+</section>
