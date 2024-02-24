@@ -1,0 +1,14 @@
+<h1>Round Details</h1>
+
+<p>
+  <strong>Date:</strong>
+  <%= @round.date.strftime("%B %d, %Y") %>
+</p>
+
+<p>
+  <strong>Course:</strong>
+  <%= @round.course.name %>
+</p>
+
+<%= link_to 'Edit', edit_round_path(@round) %> |
+<%= link_to 'Back', rounds_path %>
